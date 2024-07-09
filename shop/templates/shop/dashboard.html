@@ -1,0 +1,53 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-600 via-blue-300 to-blue-600">
+    <!-- Container to center content horizontally -->
+    <div class="container mx-auto px-4 py-8 pt-12 pb-6">
+        <!-- Dashboard Heading -->
+        <h1 class="text-4xl font-bold text-center text-white mb-8">Dashboard</h1>
+        
+        <!-- User Info -->
+        <div class="text-white mb-8">
+            <p class="text-xl">Welcome, {{ username }}!</p>
+            <p class="text-lg">Total Products: {{ total_products }}</p>
+        </div>
+
+        <!-- Grid layout for displaying user's products in rows and columns -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card for adding a new product -->
+            <div class="bg-gray-200 rounded-lg shadow-md p-4 flex flex-col justify-center items-center transition duration-500 hover:bg-black hover:text-white">
+                <!-- Text -->
+                <h2 class="text-lg font-semibold mb-4 text-center">Want to add a new product?</h2>
+                <!-- Add product button -->
+                <a href="{% url 'sell_item' %}" class="block border border-green-500 text-green-500 font-semibold py-2 px-4 rounded-full hover:bg-green-500 hover:text-white hover:border-green-500 transition duration-300">Add New Product</a>
+            </div>
+
+            {% for product in user_products %}
+            <!-- Product card container -->
+            <div class="bg-gray-200 rounded-lg shadow-md p-4 transition duration-500 hover:bg-black hover:text-white">
+                <!-- Product image -->
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/th.jpeg' %}{% endif %}" alt="{{ product.name }}" class="mb-4 w-full h-auto object-cover object-center">
+                <!-- Product name -->
+                <h2 class="text-lg font-semibold mb-2">{{ product.name }}</h2>
+                <!-- Product price -->
+                <p class="text-gray-700 font-bold hover:text-white">${{ product.price }}</p>
+                <!-- Details button -->
+                <a href="{% url 'edit_product' product.id %}" class="inline-block bg-blue-400 text-white font-semibold py-2 px-4 rounded-full mt-2 border border-blue-400 hover:bg-blue-600 hover:border-blue-600 hover:text-white">EDIT</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

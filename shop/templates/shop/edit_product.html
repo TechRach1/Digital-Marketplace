@@ -1,0 +1,72 @@
+<!-- shop/templates/shop/edit_product.html -->
+{% extends 'shop/base.html' %}
+
+{% load static %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Additional styles can be added here if necessary */
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-600 via-blue-300 to-blue-600">
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <!-- Left Card - Display original product details -->
+            <div class="bg-gray-100 rounded-lg shadow-md p-4 transition duration-500 hover:bg-black hover:text-white">
+                <!-- Product image -->
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/th.jpeg' %}{% endif %}" alt="{{ product.name }}" class="mb-4 w-full h-auto object-cover object-center">
+                <!-- Product name -->
+                <h2 class="text-lg font-semibold mb-2">{{ product.name }}</h2>
+                <!-- Product description -->
+                <p class="text-gray-700 mb-2">{{ product.description }}</p>
+                <!-- Product price -->
+                <p class="text-gray-700 font-bold mb-2">${{ product.price }}</p>
+            </div>
+            <!-- Right Card - Edit form -->
+            <div class="bg-gray-100 rounded-lg shadow-md p-4">
+                <h2 class="text-lg font-semibold mb-4">Edit Product</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Product name -->
+                    <div class="mb-4">
+                        <label for="id_name" class="block text-gray-700 font-bold mb-2">Name:</label>
+                        <input type="text" id="id_name" name="name" value="{{ product.name }}" class="form-input w-full">
+                    </div>
+                    <!-- Product description -->
+                    <div class="mb-4">
+                        <label for="id_description" class="block text-gray-700 font-bold mb-2">Description:</label>
+                        <textarea id="id_description" name="description" class="form-textarea w-full">{{ product.description }}</textarea>
+                    </div>
+                    <!-- Product price -->
+                    <div class="mb-4">
+                        <label for="id_price" class="block text-gray-700 font-bold mb-2">Price:</label>
+                        <input type="number" id="id_price" name="price" value="{{ product.price }}" step="0.01" class="form-input w-full">
+                    </div>
+                    <!-- Product image -->
+                    <div class="mb-4">
+                        <label for="id_image" class="block text-gray-700 font-bold mb-2">Image:</label>
+                        <input type="file" id="id_image" name="image" accept="image/*" class="form-input">
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="border border-blue-500 text-blue-500 font-semibold py-2 px-4 rounded-full mt-2 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition duration-300">Save Changes</button>
+                </form>
+                 <!-- Delete form -->
+                <form method="post" action="{% url 'delete_product' product.id %}" class="mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="border border-red-500 text-red-500 font-semibold py-2 px-4 rounded-full mt-2 hover:bg-red-500 hover:text-white hover:border-red-500 transition duration-300">Delete Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!-- shop/templates/shop/product_details.html -->
+
+<!-- other_template.html -->
+{% extends 'shop/base.html' %}
+
+{% load static %}
+
+{% block title %}Page Title{% endblock %}
+
+{% block content %}
+<!-- Content specific to this page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-purple-200 to-purple-400">
+    <!-- Container to center content horizontally -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Product details -->
+        <div class="bg-gray-100 rounded-lg shadow-md p-8 flex flex-col lg:flex-row items-center">
+            <!-- Product image -->
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/OIP.jpeg' %}{% endif %}" class="mb-4 lg:mb-0 lg:mr-8 w-full lg:w-auto h-auto object-cover object-center rounded-lg">
+            <!-- Product information -->
+            <div class="flex-1">
+                <!-- Product name -->
+                <h1 class="text-3xl font-semibold mb-4 text-black-800">{{ product.name }}</h1>
+                <!-- Product description -->
+                <p class="text-gray-900 mb-4">{{ product.description }}</p>
+                <!-- Product price -->
+                <p class="text-gray-800 font-bold mb-4">${{ product.price }}</p>
+                <!-- Buttons -->
+                <div class="flex space-x-4">
+                    <a href="#" class="inline-block border-2 border-green-800 text-green-800 font-semibold py-2 px-4 rounded-full hover:bg-green-800 hover:text-white">Buy Now</a>
+                    <form method="POST" action="{% url 'add_to_cart' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <button type="submit" class="inline-block border-2 border-yellow-600 text-yellow-600 font-semibold py-2 px-4 rounded-full hover:bg-yellow-600 hover:text-white">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
+
+
+
+

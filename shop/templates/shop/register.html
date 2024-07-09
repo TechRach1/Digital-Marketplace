@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-purple-200 to-purple-400 text-white flex justify-center items-center h-screen">
+    <div class="max-w-md w-full p-8 bg-gray-900 bg-opacity-90 rounded-lg shadow-md">
+        <h1 class="text-3xl font-semibold mb-8 text-center">Register</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <!-- Username Field -->
+            <div class="mb-4">
+                <input type="text" id="username" name="username" placeholder="Enter your username" class="border-2 border-gray-300 bg-gray-700 focus:outline-none focus:bg-gray-800 rounded-md py-3 px-4 w-full" required>
+                <label for="username" class="block text-right text-xs text-gray-400">Username</label>
+            </div>
+            <!-- Email Field -->
+            <div class="mb-4">
+                <input type="email" id="email" name="email" placeholder="Enter your email" class="border-2 border-gray-300 bg-gray-700 focus:outline-none focus:bg-gray-800 rounded-md py-3 px-4 w-full" required>
+                <label for="email" class="block text-right text-xs text-gray-400">Email</label>
+            </div>
+            <!-- Password Field -->
+            <div class="mb-4">
+                <input type="password" id="password1" name="password1" placeholder="Enter your password" class="border-2 border-gray-300 bg-gray-700 focus:outline-none focus:bg-gray-800 rounded-md py-3 px-4 w-full" required>
+                <label for="password1" class="block text-right text-xs text-gray-400">Password</label>
+            </div>
+            <!-- Confirm Password Field -->
+            <div class="mb-4">
+                <input type="password" id="password2" name="password2" placeholder="Confirm your password" class="border-2 border-gray-300 bg-gray-700 focus:outline-none focus:bg-gray-800 rounded-md py-3 px-4 w-full" required>
+                <label for="password2" class="block text-right text-xs text-gray-400">Confirm Password</label>
+            </div>
+            <!-- Register Button -->
+            <button type="submit" class="border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-md py-3 px-4 w-full">Register</button>
+            <div class="mb-4"></div> <!-- Adjust this margin bottom as needed -->
+            <!-- Go to Main Page Link -->
+            <a href="{% url 'first_page' %}" class="block text-center border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white rounded-md py-3 px-4 w-full">Go to Main Page</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Profile Page{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Additional styles can be added here if necessary */
+        body {
+            background: linear-gradient(to bottom right, #FF9AFF, #D87CFF);
+        }
+        .card {
+            background-color: #FDE6E6;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-title {
+            color: #F95B5B;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #F95B5B;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .form-input {
+            border-color: #F95B5B;
+            padding: 0.5rem;
+            width: 100%;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .btn-update {
+            background-color: #F95B5B;
+            color: white;
+            border-color: #F95B5B;
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-update:hover {
+            background-color: #FF928B;
+        }
+        .btn-change-password {
+            background-color: transparent;
+            color: #F95B5B;
+            border-color: #F95B5B;
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-change-password:hover {
+            background-color: rgba(249, 91, 155, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <div class="card">
+            <h2 class="card-title text-center">Profile Information</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" class="form-input" readonly>
+
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" class="form-input" readonly>
+
+                <label for="first_name" class="form-label">First Name:</label>
+                <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" class="form-input">
+
+                <label for="last_name" class="form-label">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" class="form-input">
+
+                <button type="submit" class="btn-update mt-4">Update Information</button>
+            </form>
+            <div class="text-center mt-2">
+                <a href="{% url 'change_password' %}" class="btn-change-password">Change Password</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

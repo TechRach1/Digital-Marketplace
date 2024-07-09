@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-purple-200 to-purple-400 text-white flex justify-center items-center h-screen">
+    <div class="max-w-md w-full p-8 bg-gray-900 bg-opacity-90 rounded-lg shadow-md">
+        <h1 class="text-3xl font-semibold mb-8 text-center">Logout</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <p class="mb-8 text-center">Are you sure you want to logout?</p>
+            <a href="{% url 'product_list' %}" class="block text-center border-2 border-purple-800 text-purple-800 hover:bg-purple-800 hover:text-white rounded-md py-3 px-4 w-full mb-4">NO</a>
+
+            <button type="submit" class="border-2 border-purple-800 text-purple-800 hover:bg-purple-800 hover:text-white rounded-md py-3 px-4 w-full">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
